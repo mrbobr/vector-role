@@ -1,0 +1,11 @@
+---
+# vars file for vector-role
+# vector default directories
+vector_home_dir: "/home/vector"
+vector_config_dir: "{{ vector_home_dir }}/config"
+vector_tmp_dir: "/tmp/vector"
+vector_data_dir: "/home/vector/data"
+#vector config
+vector_config_template: "../templates/vector.toml.j2"
+vector_service_template: "../templates/vector.service.j2"
+vector_systemd_dest: "/etc/systemd/system/vector.service"
