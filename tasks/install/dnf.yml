@@ -1,0 +1,8 @@
+- name: Install Vector | centos8 | dnf
+  tags: vector
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ vector_url }}"
+    update_cache: true
+    state: present
+  when: ansible_facts.pkg_mgr == "dnf"

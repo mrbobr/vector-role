@@ -1,6 +1,7 @@
 galaxy_info:
+  role_name: vector_role
   author: mrbobr
-  description: Installs Vector (https://vector.dev/) on centOS
+  description: Installs Vector (https://vector.dev/)
   company: bobrocompany
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -30,8 +31,11 @@ galaxy_info:
   platforms:
   - name: EL
     versions:
-    - all
+    - 8
     - 7
+  - name: ubuntu
+    versions:
+    - all
   # - name: SomePlatform
   #   versions:
   #   - all

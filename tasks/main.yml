@@ -14,7 +14,7 @@
         groups:
           - users
           - adm
-          - systemd-journal
+#          - systemd-journal
         name: vector
 - name: Create vector dirs
   tags: vector
@@ -30,13 +30,12 @@
     - "{{ vector_tmp_dir }}"
     - "{{ vector_data_dir }}"
     - "{{ vector_config_dir }}"
-- name: Install Vector
-  tags: vector
-  become: true
-  ansible.builtin.yum:
-    name: "{{ vector_url }}"
-    update_cache: true
-    state: present
+- name: Include install Vector | apt
+  ansible.builtin.include_tasks: tasks/install/apt.yml
+  when: ansible_facts.pkg_mgr == "apt"
+- name: Include install Vector | dnf
+  ansible.builtin.include_tasks: tasks/install/dnf.yml
+  when: ansible_facts.pkg_mgr == "dnf"
 - name: Vector config
   tags: vector
   become: true

@@ -1,0 +1,29 @@
+- name: Install curl | apt
+  tags: vector
+  become: true
+  ansible.builtin.apt:
+    name: curl
+    update_cache: true
+    state: present
+  when: ansible_facts.pkg_mgr == "apt"
+- name: Get Vector repo | apt
+  tags: vector
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ vector_repo_url }}"
+    dest: /tmp/
+  when: ansible_facts.pkg_mgr == "apt"
+- name: Add Vector repo | apt
+  tags: vector
+  become: true
+  ansible.builtin.command:
+    cmd: bash /tmp/timber-vector_deb.sh
+  when: ansible_facts.pkg_mgr == "apt"
+- name: Install Vector | apt
+  tags: vector
+  become: true
+  ansible.builtin.apt:
+    name: "{{ vector_deb_package }}"
+    update_cache: true
+    state: present
+  when: ansible_facts.pkg_mgr == "apt"
