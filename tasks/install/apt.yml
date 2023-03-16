@@ -1,3 +1,4 @@
+---
 - name: Install curl | apt
   tags: vector
   become: true
@@ -10,7 +11,7 @@
   tags: vector
   become: true
   ansible.builtin.get_url:
-    url: "{{ vector_repo_url }}"
+    url: "{{ vector_deb_repo_url }}"
     dest: /tmp/
   when: ansible_facts.pkg_mgr == "apt"
 - name: Add Vector repo | apt

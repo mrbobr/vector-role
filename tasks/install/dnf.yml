@@ -1,8 +1,7 @@
-- name: Install Vector | centos8 | dnf
+---
+- name: Install Vector | rpm
   tags: vector
   become: true
-  ansible.builtin.dnf:
-    name: "{{ vector_url }}"
-    update_cache: true
-    state: present
+  ansible.builtin.command:
+    cmd: "rpm -i {{ vector_rpm_url }}"
   when: ansible_facts.pkg_mgr == "dnf"

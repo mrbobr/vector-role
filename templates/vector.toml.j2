@@ -31,10 +31,16 @@ source = '''
 '''
 
 # Print parsed logs to stdout
-[sinks.print]
-type = "console"
+# [sinks.print]
+# type = "console"
+# inputs = ["parse_logs"]
+# encoding.codec = "json"
+
+# Print parsed logs to nowhere
+[sinks.blackhole]
+type = "blackhole"
 inputs = ["parse_logs"]
-encoding.codec = "json"
+print_interval_secs = 1
 
 # Vector's GraphQL API (disabled by default)
 # Uncomment to try it out with the `vector top` command or

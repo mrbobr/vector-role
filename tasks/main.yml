@@ -47,20 +47,8 @@
     owner: vector
     mode: "0644"
     validate: vector validate --no-environment -- %s
-- name: Create Vector service
-  become: true
+- name: Start Vector | directly
   tags: vector
-  ansible.builtin.template:
-    backup: true
-    src: "{{ vector_service_template }}"
-    dest: "{{ vector_systemd_dest }}"
-    group: vector
-    owner: vector
-    mode: "0644"
-- name: Start Vector service
   become: true
-  tags: vector
-  ansible.builtin.systemd:
-    name: vector
-    state: started
-    daemon_reload: true
+  ansible.builtin.shell:
+    cmd: "vector --config {{ vector_config_dir }}/vector.toml &"

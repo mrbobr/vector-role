@@ -1,10 +1,35 @@
 ---
 # This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
   gather_facts: false
+  vars:
+    vector_home_dir: "/home/vector"
+    vector_config_dir: "{{ vector_home_dir }}/config/vector.toml"
   tasks:
-  - name: Example assertion
+  - name: Get vector version
+    ansible.builtin.shell:
+      cmd: "vector --version | awk '{print $2}'"
+    register: c_version
+  - name: Print vector version
+    ansible.builtin.debug:
+      var: c_version.stdout
+  - name: Get vector process
+    ansible.builtin.shell: ps -ef | grep vector
+    register: proc
+  - name: Vector started msg
     ansible.builtin.assert:
-      that: true
+      that: proc.stdout | regex_search('vector --config')
+      success_msg: vector запущен
+      fail_msg: vector не запущен
+  - name: Validate config
+    ansible.builtin.shell:
+      cmd: "vector validate {{ vector_config_dir }}"
+    register: v_result
+  - name: Print validation
+    ansible.builtin.debug:
+      var: v_result.stdout_lines
+  - name: Vector validate msg
+    ansible.builtin.assert:
+      that: v_result.stdout_lines | regex_search('Validated')
+      success_msg: vector config validated
