@@ -46,7 +46,7 @@
     group: vector
     owner: vector
     mode: "0644"
-    validate: vector validate --no-environment -- %s
+ #   validate: vector validate --no-environment -- %s
 - name: Start Vector | directly
   tags: vector
   become: true

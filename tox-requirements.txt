@@ -3,5 +3,5 @@ ansible-lint==5.1.3
 yamllint==1.26.3
 lxml
 molecule==3.5.2
-molecule_podman
+molecule-podman
 jmespath
